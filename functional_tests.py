@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
 import unittest
 
 class NewVisitorTest(unittest.TestCase):
@@ -16,13 +18,32 @@ class NewVisitorTest(unittest.TestCase):
 
         # The browser should show the site's objective, which is a to-do list
         self.assertIn('To-Do', self.browser.title)
-        self.fail('Finish the test!')
+        header_text = self.browser.find_element_by_tag_name('h1').text
+        self.assertIn('To-Do', header_text)
 
         # The user creates an initial element: 1. Buy peacock feathers
         # The page updates and shows this element in the list
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertEqual(
+            inputbox.get_attibrute('placeholder'),
+            'Enter a to-do item'
+        )
+
+        inputbox.send_keys('Buy peacock feathers')
+
+        inputbox.send_keys(keys.ENTER)
+        time.sleep(1)
+
+        table = self.browser.find_element_by_id('id_list_table')
+        rows = table.find_elements_by_tag_name('tr')
+        self.assertTrue(
+            any(row.text == '1: Buy peacock feathers' for row in rows)
+        )
 
         # The decides to add a new one, Use peacock feathers to make a fly
-        # The page updates again and shows both elements
+        # The page updates again and shows both element
+        self.fail('Finish the test!')
+
 
         # A unique URL is generated for the user, to remember the list that
         # they have created for next time
