@@ -1,6 +1,6 @@
 import random
 from fabric.contrib.files import append, exists
-from farbic.api import cd, env, local, run
+from fabric.api import cd, env, local, run
 
 REPO_URL = 'https://github.com/dsharpc/tdd-book'
 
@@ -30,7 +30,7 @@ def _update_virtualenv():
 def _create_or_update_dotenv():
     append('.env', 'DJANGO_DEBUG_FALSE=y')
     append('.env', f'SITENAME={env.host}')
-    current_contents = run('cat.env')
+    current_contents = run('cat .env')
     if 'DJANGO_SECRET_KEY' not in current_contents:
         new_secret = ''.join(random.SystemRandom().choices(
             'abcdefghijklmnopqrstuvwxyz0123456789', k=50
