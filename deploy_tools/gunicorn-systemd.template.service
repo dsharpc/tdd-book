@@ -7,7 +7,7 @@ User=dan
 WorkingDirectory=/home/dan/sites/DOMAIN
 EnvironmentFile=/home/dan/sites/DOMAIN/.env
 
-ExecStart=/home/dan/sites/DOMAIN/virutalenv/bin/gunicorn --bind unix:/tmp/DOMAIN.socket superlists.wsgi:application
+ExecStart=/home/dan/sites/DOMAIN/virtualenv/bin/gunicorn --bind unix:/tmp/DOMAIN.socket superlists.wsgi:application
 
 [Install]
 WantedBy=multi-user.target
